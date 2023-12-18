@@ -7,9 +7,9 @@ class User
     private string $email;
 
     /**
-     * @param int $id
      * @param string $name
      * @param string $email
+     * @param int|null $id
      */
     public function __construct(string $name, string $email,int $id=null)
     {
@@ -50,18 +50,18 @@ class User
 
 
 
-    public function insert($orm):void{
-        $this->id = $orm->create('users', ['name' => $this->name, 'email' => $this->email]);
+    public function insert():void{
+        $this->id = crud::create('users', ['name' => $this->name, 'email' => $this->email]);
     }
-    public function update($orm){
-        $orm->update('users', $this->id, ['name' => $this->name]);
-        return $orm->read('users', $this->id);
+    public function update(){
+        crud::update('users', $this->id, ['name' => $this->name]);
+        return crud::read('users', $this->id);
     }
-    public function delete($orm):void{
-        $orm->delete('users', $this->id);
+    public function delete():void{
+        crud::delete('users', $this->id);
     }
-    public function select($orm){
-        return $orm->read('users', $this->id);
+    public function select(){
+        return crud::read('users', $this->id);
     }
 
 
